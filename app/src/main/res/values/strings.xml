@@ -12,8 +12,8 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="back_to_login">Back to LOGIN</string>
 
-    <string-array name="Role">
-        <item>Student</item>
-        <item>Teacher</item>
+    <string-array name="role_array">
+        <item>STUDENT</item>
+        <item>TEACHER</item>
     </string-array>
 </resources>

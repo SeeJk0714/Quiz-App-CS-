@@ -57,11 +57,11 @@
             android:padding="20dp" />
 
         <Spinner
-            android:id="@+id/Category"
+            android:id="@+id/sRole"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginTop="20dp"
-            android:entries="@array/Role"
+            android:entries="@array/role_array"
             android:background="@drawable/input_box" />
 
         <com.google.android.material.button.MaterialButton
