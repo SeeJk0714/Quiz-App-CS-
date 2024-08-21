@@ -1,0 +1,49 @@
+package com.seejiekai.quizappcs.ui.register
+
+import androidx.lifecycle.viewModelScope
+import com.seejiekai.quizappcs.core.service.AuthService
+import com.seejiekai.quizappcs.core.utils.ValidationUtil
+import com.seejiekai.quizappcs.data.model.User
+import com.seejiekai.quizappcs.data.model.ValidationField
+import com.seejiekai.quizappcs.data.repo.UserRepo
+import com.seejiekai.quizappcs.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
+    private val authService: AuthService,
+    private val userRepo: UserRepo
+): BaseViewModel() {
+    val success: MutableSharedFlow<Unit> = MutableSharedFlow()
+
+    fun createUser(userName: String, email: String, pass: String, confirmPass: String, role: String) {
+        val error = ValidationUtil.validate(
+            ValidationField(userName, "[a-zA-z ]{2,20}", "Enter a valid name"),
+            ValidationField(email, "[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+", "Enter a valid email"),
+            ValidationField(pass, "[a-zA-z0-9#$%]{3,20}", "Enter a valid password"),
+            ValidationField(confirmPass, "[a-zA-z0-9#$%]{3,20}", "Enter a valid confirm password")
+        )
+
+        if (error == null){
+            viewModelScope.launch(Dispatchers.IO) {
+                errorHandler {
+                    authService.createUserWithEmailAndPass(email, pass)
+                }?.let {
+                    userRepo.createUser(
+                        User(userName, email, role)
+                    )
+                    success.emit(Unit)
+                }
+            }
+        } else {
+            viewModelScope.launch {
+                _error.emit(error)
+            }
+        }
+
+    }
+}
