@@ -20,7 +20,6 @@ class RegisterViewModel @Inject constructor(
     private val authService: AuthService,
     private val userRepo: UserRepo
 ): BaseViewModel() {
-    val success: MutableSharedFlow<Unit> = MutableSharedFlow()
 
     fun createUser(userName: String, email: String, pass: String, confirmPass: String, role: String) {
         val error = ValidationUtil.validate(
@@ -32,7 +31,7 @@ class RegisterViewModel @Inject constructor(
         )
 
         //This converts the string "STUDENT" or "TEACHER" into the corresponding UserRoles enum constant.
-        // For instance, if role is "STUDENT", UserRoles.valueOf(role) will return UserRoles.STUDENT.
+        //For instance, if role is "STUDENT", UserRoles.valueOf(role) will return UserRoles.STUDENT.
         val userRole = UserRoles.valueOf(role)
 
         if (error == null){
@@ -48,7 +47,7 @@ class RegisterViewModel @Inject constructor(
                             userRole
                         )
                     )
-                    success.emit(Unit)
+                    success.emit(userRole)
                 }
             }
         } else {
@@ -56,6 +55,5 @@ class RegisterViewModel @Inject constructor(
                 _error.emit(error)
             }
         }
-
     }
 }

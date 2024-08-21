@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.seejiekai.quizappcs.R
+import com.seejiekai.quizappcs.core.utils.UserRoles
 import com.seejiekai.quizappcs.databinding.FragmentRegisterBinding
 import com.seejiekai.quizappcs.ui.base.BaseFragment
 import com.seejiekai.quizappcs.ui.base.BaseViewModel
@@ -60,9 +61,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         super.onBindData(view)
 
         lifecycleScope.launch {
-            viewModel.success.collect {
+            viewModel.success.collect { role ->
                 findNavController().navigate(
-                    RegisterFragmentDirections.actionRegisterToHome()
+                    when(role) {
+                        UserRoles.STUDENT -> RegisterFragmentDirections.actionRegisterToHome()
+                        UserRoles.TEACHER -> RegisterFragmentDirections.actionRegisterToTeacherDashboard()
+                    }
                 )
             }
         }

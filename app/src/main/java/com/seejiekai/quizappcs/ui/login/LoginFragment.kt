@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.seejiekai.quizappcs.R
+import com.seejiekai.quizappcs.core.utils.UserRoles
 import com.seejiekai.quizappcs.databinding.FragmentLoginBinding
 import com.seejiekai.quizappcs.ui.base.BaseFragment
 import com.seejiekai.quizappcs.ui.base.BaseViewModel
@@ -41,9 +42,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onBindData(view: View) {
         super.onBindData(view)
         lifecycleScope.launch {
-            viewModel.success.collect {
+            viewModel.success.collect { role ->
                 findNavController().navigate(
-                    LoginFragmentDirections.actionLoginToHome()
+                    when(role) {
+                        UserRoles.STUDENT -> LoginFragmentDirections.actionLoginToHome()
+                        UserRoles.TEACHER -> LoginFragmentDirections.actionLoginToTeacherDashboard()
+                    }
+
                 )
             }
         }
