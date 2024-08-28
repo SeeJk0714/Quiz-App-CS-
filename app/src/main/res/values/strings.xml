@@ -13,6 +13,13 @@
     <string name="back_to_login">Back to LOGIN</string>
     <string name="quiz">QuiZ</string>
     <string name="teacher">Teacher</string>
+    <string name="upload_csv">Upload CSV</string>
+    <string name="quiz_name">Quiz Name</string>
+    <string name="quiz_id">Quiz ID</string>
+    <string name="quiz_description">Quiz Description</string>
+    <string name="option">Option</string>
+    <string name="_1">1</string>
+    <string name="question">Question</string>
 
     <string-array name="role_array">
         <item>STUDENT</item>

@@ -30,7 +30,7 @@ class QuizRepoFirebase(
             value?.documents?.map { item ->
                 item.data?.let { quizMap ->
                     val quiz = Quiz.fromMap(quizMap)
-                    quizzes.add(quiz.copy(id = item.id))
+                    quizzes.add(quiz.copy(id = item.id  ))
                 }
             }
             trySend(quizzes)

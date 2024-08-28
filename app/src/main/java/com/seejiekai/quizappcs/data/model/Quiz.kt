@@ -2,24 +2,25 @@ package com.seejiekai.quizappcs.data.model
 
 data class Quiz(
     val id: String? = null,
-    val title: String = "",
-    val desc: String = "",
-    val priority: Int = 0,
+    val quizId: String? = null,
+    val quizName: String = "",
+    val questions: List<Question> = emptyList()
+
 ){
     fun toMap(): Map<String, Any?> {
         return mapOf(
-            "title" to title,
-            "desc" to desc,
-            "priority" to priority,
+            "quizId" to quizId,
+            "quizName" to quizName,
+            "questions" to questions
         )
     }
 
     companion object {
         fun fromMap(map: Map<String,Any>): Quiz {
             return Quiz(
-                title = map["title"].toString(),
-                desc = map["desc"].toString(),
-                priority = map["priority"].toString().toIntOrNull() ?: 0
+                quizId = map["quizId"].toString(),
+                quizName = map["quizName"].toString(),
+                questions = (map["questions"] as? List<Map<String, Any>>)?.map { Question.fromMap(it) } ?: emptyList()
             )
         }
     }

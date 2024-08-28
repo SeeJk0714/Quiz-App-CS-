@@ -1,4 +1,4 @@
-package com.seejiekai.quizappcs.ui.dashboard
+package com.seejiekai.quizappcs.ui.teacher.dashboard
 
 import androidx.lifecycle.viewModelScope
 import com.seejiekai.quizappcs.core.service.AuthService

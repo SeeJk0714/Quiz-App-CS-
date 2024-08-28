@@ -1,4 +1,4 @@
-package com.seejiekai.quizappcs.ui.dashboard
+package com.seejiekai.quizappcs.ui.teacher.dashboard
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -26,6 +26,18 @@ class TeacherDashboardFragment : BaseFragment<FragmentTeacherDashboardBinding>()
             viewModel.logout()
             findNavController().navigate(
                 TeacherDashboardFragmentDirections.actionTeacherDashboardToLogin()
+            )
+        }
+
+        binding?.mcCSV?.setOnClickListener {
+            findNavController().navigate(
+                TeacherDashboardFragmentDirections.actionTeacherDashboardToAddCSV()
+            )
+        }
+
+        binding?.mcQuiz?.setOnClickListener {
+            findNavController().navigate(
+                TeacherDashboardFragmentDirections.actionTeacherDashboardToTeacherQuiz()
             )
         }
     }

@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/teacherDashboardFragment"
-        android:name="com.seejiekai.quizappcs.ui.dashboard.TeacherDashboardFragment"
+        android:name="com.seejiekai.quizappcs.ui.teacher.dashboard.TeacherDashboardFragment"
         android:label="TeacherDashboardFragment"
         tools:layout="@layout/fragment_teacher_dashboard">
         <action
@@ -56,5 +56,44 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/teacherDashboardFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_teacherDashboard_to_addCSV"
+            app:destination="@id/addCSVFragment" />
+        <action
+            android:id="@+id/action_teacherDashboard_to_teacherQuiz"
+            app:destination="@id/teacherQuizFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/addCSVFragment"
+        android:name="com.seejiekai.quizappcs.ui.addEditCSV.add.AddCSVFragment"
+        android:label="AddCSVFragment"
+        tools:layout="@layout/fragment_base_manage"/>
+    <fragment
+        android:id="@+id/teacherQuizFragment"
+        android:name="com.seejiekai.quizappcs.ui.teacher.quiz.TeacherQuizFragment"
+        android:label="fragment_teacher_quiz"
+        tools:layout="@layout/fragment_teacher_quiz" >
+        <action
+            android:id="@+id/action_teacherQuiz_to_viewQuiz"
+            app:destination="@id/viewQuizFragment" />
+        <action
+            android:id="@+id/action_teacherQuiz_to_editCSV"
+            app:destination="@id/editCSVFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewQuizFragment"
+        android:name="com.seejiekai.quizappcs.ui.teacher.viewQuiz.ViewQuizFragment"
+        android:label="ViewQuizFragment"
+        tools:layout="@layout/fragment_view_quiz">
+        <argument android:name="quizId" app:argType="string"/>
+    </fragment>
+    <fragment
+        android:id="@+id/editCSVFragment"
+        android:name="com.seejiekai.quizappcs.ui.addEditCSV.edit.EditCSVFragment"
+        android:label="EditCSVFragment"
+        tools:layout="@layout/fragment_base_manage">
+        <argument android:name="quizId" app:argType="string"/>
+
     </fragment>
 </navigation>
