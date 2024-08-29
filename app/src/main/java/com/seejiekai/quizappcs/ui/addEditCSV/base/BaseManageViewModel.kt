@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 abstract class BaseManageViewModel:BaseViewModel() {
 
-    private val _questions = MutableStateFlow<List<Question>>(emptyList())
+    val _questions = MutableStateFlow<List<Question>>(emptyList())
     val questions: StateFlow<List<Question>> = _questions
 
     val finish: MutableSharedFlow<Unit> = MutableSharedFlow()

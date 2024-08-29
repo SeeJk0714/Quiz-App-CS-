@@ -1,7 +1,6 @@
 package com.seejiekai.quizappcs.data.model
 
 data class Question(
-    val id: String? = null,
     val question: String = "",
     val option: List<String> = emptyList(),
     val answer: String = "",
@@ -19,10 +18,10 @@ data class Question(
     }
 
     companion object {
-        fun fromMap(map: Map<String, Any>): Question {
+        fun fromMap(map: Map<*,*>): Question {
             return Question(
                 question = map["question"].toString(),
-                option = (map["options"] as? List<String>) ?: emptyList(),
+                option = (map["option"] as? List<*>)?.map { it.toString() } ?: emptyList(),
                 answer = map["answer"].toString(),
                 time = map["time"].toString().toIntOrNull() ?: 30,
                 mark = map["mark"].toString().toIntOrNull() ?: 1

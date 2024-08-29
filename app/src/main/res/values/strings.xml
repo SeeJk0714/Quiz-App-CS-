@@ -20,6 +20,7 @@
     <string name="option">Option</string>
     <string name="_1">1</string>
     <string name="question">Question</string>
+    <string name="update">Update</string>
 
     <string-array name="role_array">
         <item>STUDENT</item>

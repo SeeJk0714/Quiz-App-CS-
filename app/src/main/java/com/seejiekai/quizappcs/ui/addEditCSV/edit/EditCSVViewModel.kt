@@ -2,6 +2,7 @@ package com.seejiekai.quizappcs.ui.addEditCSV.edit
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.seejiekai.quizappcs.data.model.Question
 import com.seejiekai.quizappcs.data.model.Quiz
 import com.seejiekai.quizappcs.data.repo.QuizRepo
 import com.seejiekai.quizappcs.ui.addEditCSV.base.BaseManageViewModel
@@ -13,18 +14,23 @@ import javax.inject.Inject
 @HiltViewModel
 class EditCSVViewModel @Inject constructor(
     private val quizRepo: QuizRepo,
+    private val state: SavedStateHandle
+
 ): BaseManageViewModel() {
     val quiz: MutableStateFlow<Quiz?> = MutableStateFlow(null)
+    private val quizId = state.get<String>("quizId")
 
-    fun getQuizById(id: String) {
+    init {
         viewModelScope.launch {
-            quiz.value = quizRepo.getQuizById(id)
+            quizId?.let { id ->
+                quiz.value = quizRepo.getQuizById(id)
+            }
         }
     }
 
     fun uploadCSV(name: String) {
         quiz.value?.let {
-            val newQuiz = it.copy(quizName = name)
+            val newQuiz = it.copy(quizName = name, questions = _questions.value)
             viewModelScope.launch {
                 quizRepo.updateQuiz(newQuiz)
                 finish.emit(Unit)

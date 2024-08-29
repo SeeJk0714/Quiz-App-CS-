@@ -20,14 +20,13 @@ object CSVUtil {
                 reader.readLine()
                 reader.forEachLine { line ->
                     val content = line.split(",")
-                    if (content.size >= 7) {
+                    if (content.size >= 6) {
                         val question = Question(
-                            id = content[0],
-                            question = content[1],
-                            option = content.subList(2,6),
-                            answer = content[6],
-                            time = content[7].toIntOrNull() ?: 10,
-                            mark = content[8].toIntOrNull() ?: 1
+                            question = content[0],
+                            option = content.subList(1,5),
+                            answer = content[5],
+                            time = content[6].toIntOrNull() ?: 10,
+                            mark = content[7].toIntOrNull() ?: 1
                         )
                         questions.add(question)
                     }

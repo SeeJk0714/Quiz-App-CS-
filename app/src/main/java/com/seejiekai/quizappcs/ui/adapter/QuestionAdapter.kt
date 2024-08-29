@@ -1,5 +1,6 @@
 package com.seejiekai.quizappcs.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -36,12 +37,14 @@ class QuestionAdapter(
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(question: Question) {
             binding.run {
-                tvID.text = question.id
+                Log.d("debugging", question.toString())
                 tvQuestion.text = question.question
-                tvOption1.text = question.option[0]
-                tvOption2.text = question.option[1]
-                tvOption3.text = question.option[2]
-                tvOption4.text = question.option[3]
+                if (question.option.size >= 4) {
+                    tvOption1.text = question.option[0]
+                    tvOption2.text = question.option[1]
+                    tvOption3.text = question.option[2]
+                    tvOption4.text = question.option[3]
+                }
                 tvAns.text = question.answer
             }
         }

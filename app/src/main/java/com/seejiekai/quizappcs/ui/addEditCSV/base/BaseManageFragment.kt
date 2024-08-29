@@ -23,28 +23,8 @@ abstract class BaseManageFragment : BaseFragment<FragmentBaseManageBinding>() {
 
     override fun onBindView(view: View) {
         binding = DataBindingUtil.bind(view)
-
         setupQuestionAdapter()
-
-        // This line initializes "csvPickerLauncher" to handle the result of picking a file.
-        csvPickerLauncher = registerForActivityResult(
-            ActivityResultContracts.GetContent()
-        ){ uri: Uri? ->
-            uri?.let {
-                val questions = CSVUtil.readCSV(requireContext(), it)
-                if (questions.isNotEmpty()) {
-                    viewModel.setQuestions(questions)
-                    adapter.setQuestions(questions)
-                    adapter.notifyDataSetChanged()
-                    binding?.tvCSV?.isInvisible = adapter.itemCount != 0
-                }
-            }
-        }
-
-        // This line sets up a click listener for a button "btnUploadCSV" that triggers the CSV file picker when clicked.
-        binding?.btnUploadCSV?.setOnClickListener {
-            csvPickerLauncher.launch("text/*")
-        }
+        refreshCSV()
     }
 
     override fun onBindData(view: View) {
@@ -60,4 +40,26 @@ abstract class BaseManageFragment : BaseFragment<FragmentBaseManageBinding>() {
         binding?.rvQuestion?.adapter = adapter
         binding?.rvQuestion?.layoutManager = LinearLayoutManager(requireContext())
     }
+
+    private fun refreshCSV() {
+        // This line initializes "csvPickerLauncher" to handle the result of picking a file.
+        csvPickerLauncher = registerForActivityResult(
+            ActivityResultContracts.GetContent()
+        ){ uri: Uri? ->
+            uri?.let {
+                val questions = CSVUtil.readCSV(requireContext(), it)
+                if (questions.isNotEmpty()) {
+                    viewModel.setQuestions(questions)
+                    adapter.setQuestions(questions)
+                    binding?.tvCSV?.isInvisible = adapter.itemCount != 0
+                }
+            }
+        }
+
+        // This line sets up a click listener for a button "btnUploadCSV" that triggers the CSV file picker when clicked.
+        binding?.btnUploadCSV?.setOnClickListener {
+            csvPickerLauncher.launch("text/*")
+        }
+    }
+
 }

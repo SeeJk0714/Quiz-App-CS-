@@ -16,11 +16,13 @@ data class Quiz(
     }
 
     companion object {
-        fun fromMap(map: Map<String,Any>): Quiz {
+        fun fromMap(map: Map<*,*>): Quiz {
             return Quiz(
                 quizId = map["quizId"].toString(),
                 quizName = map["quizName"].toString(),
-                questions = (map["questions"] as? List<Map<String, Any>>)?.map { Question.fromMap(it) } ?: emptyList()
+                questions = (map["questions"] as? List<*>)?.map { question ->
+                    Question.fromMap(question as Map<*, *>)
+                } ?: emptyList()
             )
         }
     }
