@@ -1,4 +1,4 @@
-package com.seejiekai.quizappcs.ui.addEditCSV.base
+package com.seejiekai.quizappcs.ui.teacher.addEditCSV.base
 
 import com.seejiekai.quizappcs.data.model.Question
 import com.seejiekai.quizappcs.ui.base.BaseViewModel
@@ -11,7 +11,7 @@ abstract class BaseManageViewModel:BaseViewModel() {
     val _questions = MutableStateFlow<List<Question>>(emptyList())
     val questions: StateFlow<List<Question>> = _questions
 
-    val finish: MutableSharedFlow<Unit> = MutableSharedFlow()
+    override val finish: MutableSharedFlow<Unit> = MutableSharedFlow()
 
     fun setQuestions(questions: List<Question>) {
         _questions.value = questions

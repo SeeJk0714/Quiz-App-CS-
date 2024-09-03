@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.seejiekai.quizappcs.ui.home.HomeFragment"
+        android:name="com.seejiekai.quizappcs.ui.student.home.HomeFragment"
         android:label="QuiZ"
         tools:layout="@layout/fragment_home" >
         <action
@@ -45,6 +45,12 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_home_to_studentQuiz"
+            app:destination="@id/studentQuizFragment" />
+        <action
+            android:id="@+id/action_home_to_rank"
+            app:destination="@id/rankFragment" />
     </fragment>
     <fragment
         android:id="@+id/teacherDashboardFragment"
@@ -66,7 +72,7 @@
     </fragment>
     <fragment
         android:id="@+id/addCSVFragment"
-        android:name="com.seejiekai.quizappcs.ui.addEditCSV.add.AddCSVFragment"
+        android:name="com.seejiekai.quizappcs.ui.teacher.addEditCSV.add.AddCSVFragment"
         android:label="AddCSVFragment"
         tools:layout="@layout/fragment_base_manage"/>
     <fragment
@@ -90,10 +96,24 @@
     </fragment>
     <fragment
         android:id="@+id/editCSVFragment"
-        android:name="com.seejiekai.quizappcs.ui.addEditCSV.edit.EditCSVFragment"
+        android:name="com.seejiekai.quizappcs.ui.teacher.addEditCSV.edit.EditCSVFragment"
         android:label="EditCSVFragment"
         tools:layout="@layout/fragment_base_manage">
         <argument android:name="quizId" app:argType="string"/>
 
     </fragment>
+    <fragment
+        android:id="@+id/studentQuizFragment"
+        android:name="com.seejiekai.quizappcs.ui.student.quiz.StudentQuizFragment"
+        android:label="fragment_student_quiz"
+        tools:layout="@layout/fragment_student_quiz" >
+        <argument android:name="accessId" app:argType="string"/>
+        <action
+            android:id="@+id/action_studentQuiz_to_home"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rankFragment"
+        android:name="com.seejiekai.quizappcs.ui.student.ranking.RankFragment"
+        android:label="RankFragment" />
 </navigation>

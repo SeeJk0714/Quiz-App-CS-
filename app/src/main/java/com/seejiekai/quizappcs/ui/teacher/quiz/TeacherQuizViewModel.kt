@@ -24,4 +24,13 @@ class TeacherQuizViewModel @Inject constructor(
     private val authService: AuthService
 ): BaseViewModel() {
     fun getAllQuiz() = quizRepo.getAllQuizzes()
+
+    fun deleteQuiz(id: String) {
+        viewModelScope.launch {
+            errorHandler {
+                quizRepo.deleteQuiz(id)
+                finish.emit(Unit)
+            }
+        }
+    }
 }

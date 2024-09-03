@@ -3,16 +3,11 @@ package com.seejiekai.quizappcs.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.animation.AnimatableView.Listener
-import com.seejiekai.quizappcs.core.service.AuthService
 import com.seejiekai.quizappcs.data.model.Quiz
-import com.seejiekai.quizappcs.databinding.QuestionItemLayoutBinding
 import com.seejiekai.quizappcs.databinding.QuizItemLayoutBinding
 
 class QuizAdapter(
     private var quizzes: List<Quiz>,
-//    private val authService: AuthService
-
 ): RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
     var listener: Listener ?= null
 
@@ -41,10 +36,9 @@ class QuizAdapter(
         private val binding: QuizItemLayoutBinding
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(quiz: Quiz) {
-            binding?.run {
-                tvQuizID.text = quiz.quizId
+            binding.run {
+                tvQuizID.text = quiz.accessCode
                 tvQuizName.text = quiz.quizName
-//                tvTeacher.text =
 
                 cvQuiz.setOnClickListener {
                     listener?.onClick(quiz)

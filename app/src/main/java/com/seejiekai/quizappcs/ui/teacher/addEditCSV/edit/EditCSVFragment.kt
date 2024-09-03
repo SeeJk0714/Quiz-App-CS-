@@ -1,4 +1,4 @@
-package com.seejiekai.quizappcs.ui.addEditCSV.edit
+package com.seejiekai.quizappcs.ui.teacher.addEditCSV.edit
 
 import android.net.Uri
 import android.util.Log
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.seejiekai.quizappcs.R
 import com.seejiekai.quizappcs.core.utils.CSVUtil
 import com.seejiekai.quizappcs.ui.adapter.QuestionAdapter
-import com.seejiekai.quizappcs.ui.addEditCSV.base.BaseManageFragment
+import com.seejiekai.quizappcs.ui.teacher.addEditCSV.base.BaseManageFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -30,12 +30,14 @@ class EditCSVFragment: BaseManageFragment() {
         setupQuestionAdapter()
         refreshCSV()
 
-        binding?.btnSubmit?.text = getString(R.string.update)
+        binding?.run {
+            btnSubmit.text = getString(R.string.update)
+            btnSubmit.setOnClickListener {
+                val quizName = etQuizName.text.toString()
+                val desc = etQuizDesc.text.toString()
 
-        binding?.btnSubmit?.setOnClickListener {
-            val quizName = binding?.etQuizName?.text.toString()
-
-            viewModel.uploadCSV(quizName)
+                viewModel.uploadCSV(quizName, desc)
+            }
         }
     }
 
@@ -46,6 +48,7 @@ class EditCSVFragment: BaseManageFragment() {
                 quiz?.let {
                     Log.d("quizname", it.quizName)
                     binding?.etQuizName?.setText(it.quizName)
+                    binding?.etQuizDesc?.setText(it.description)
                     adapter.setQuestions(it.questions)
                 }
             }

@@ -11,7 +11,6 @@ import com.seejiekai.quizappcs.R
 import com.seejiekai.quizappcs.databinding.FragmentTeacherDashboardBinding
 import com.seejiekai.quizappcs.ui.base.BaseFragment
 import com.seejiekai.quizappcs.ui.base.BaseViewModel
-import com.seejiekai.quizappcs.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

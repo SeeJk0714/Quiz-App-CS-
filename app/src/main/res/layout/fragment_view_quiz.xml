@@ -24,10 +24,18 @@
                 android:textStyle="bold"/>
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Description"
+            android:textSize="20dp"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvQuestion"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:listitem="@layout/question_item_layout" />
 
 

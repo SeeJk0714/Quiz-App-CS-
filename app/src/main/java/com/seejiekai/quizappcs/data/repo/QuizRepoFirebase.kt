@@ -17,7 +17,7 @@ class QuizRepoFirebase(
     private fun getCollection(): CollectionReference {
         val uid = authService.getUid() ?: throw Exception("User doesn't exist")
         return Firebase.firestore
-            .collection("root_db/$uid/quizzes")
+            .collection("quizzes")
     }
 
     override fun getAllQuizzes() = callbackFlow<List<Quiz>> {
@@ -30,7 +30,7 @@ class QuizRepoFirebase(
             value?.documents?.map { item ->
                 item.data?.let { quizMap ->
                     val quiz = Quiz.fromMap(quizMap)
-                    quizzes.add(quiz.copy(id = item.id  ))
+                    quizzes.add(quiz.copy(quizId = item.id  ))
                 }
             }
             trySend(quizzes)
@@ -38,6 +38,10 @@ class QuizRepoFirebase(
         awaitClose {
             listener.remove()
         }
+    }
+
+    override fun getNewQuizById(): String {
+        return getCollection().document().id
     }
 
     override suspend fun addQuiz(quiz: Quiz): String? {
@@ -50,12 +54,24 @@ class QuizRepoFirebase(
     }
 
     override suspend fun updateQuiz(quiz: Quiz) {
-        getCollection().document(quiz.id!!).set(quiz.toMap()).await()
+        getCollection().document(quiz.quizId!!).set(quiz.toMap()).await()
     }
 
     override suspend fun getQuizById(id: String): Quiz? {
         val res = getCollection().document(id).get().await()
         Log.d("debugging","map: "+res.data.toString())
-        return res.data?.let { Quiz.fromMap(it).copy(id = res.id) }
+        return res.data?.let { Quiz.fromMap(it).copy(quizId = res.id) }
+    }
+
+    override suspend fun verifyAccessCode(accessCode: String): Quiz? {
+        // Query the collection to find documents where 'accessCode' matches the given accessCode
+        val res = getCollection().whereEqualTo("accessCode", accessCode).get().await()
+
+        return if (res.isEmpty) {
+            null  // No matching document found
+        } else {
+            val document = res.documents[0]
+            Quiz.fromMap(document.data!!).copy(quizId = document.id)
+        }
     }
 }

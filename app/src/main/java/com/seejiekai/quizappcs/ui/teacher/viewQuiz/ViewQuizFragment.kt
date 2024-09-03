@@ -35,6 +35,8 @@ class ViewQuizFragment : BaseFragment<FragmentViewQuizBinding>() {
         lifecycleScope.launch {
             viewModel.quiz.collect { quiz ->
                 if (quiz != null) {
+                    binding?.tvQuizName?.text = quiz.quizName
+                    binding?.tvDesc?.text = quiz.description
                     quiz.questions.let { questions ->
                         adapter.setQuestions(questions)
                     }

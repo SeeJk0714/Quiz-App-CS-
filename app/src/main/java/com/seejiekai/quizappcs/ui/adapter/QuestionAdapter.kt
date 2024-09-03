@@ -39,11 +39,10 @@ class QuestionAdapter(
             binding.run {
                 Log.d("debugging", question.toString())
                 tvQuestion.text = question.question
-                if (question.option.size >= 4) {
-                    tvOption1.text = question.option[0]
-                    tvOption2.text = question.option[1]
-                    tvOption3.text = question.option[2]
-                    tvOption4.text = question.option[3]
+                val optionViews = listOf(tvOption1, tvOption2, tvOption3, tvOption4)
+                // Set options based on available size
+                question.option.take(optionViews.size).forEachIndexed { index, option ->
+                    optionViews[index].text = option
                 }
                 tvAns.text = question.answer
             }

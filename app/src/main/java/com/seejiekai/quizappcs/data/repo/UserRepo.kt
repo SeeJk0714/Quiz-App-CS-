@@ -2,7 +2,6 @@ package com.seejiekai.quizappcs.data.repo
 
 import com.google.firebase.auth.ktx.auth
 
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -11,7 +10,7 @@ import com.seejiekai.quizappcs.data.model.User
 import kotlinx.coroutines.tasks.await
 
 class UserRepo {
-    private fun getUid(): String {
+    fun getUid(): String {
         val uid = Firebase.auth.currentUser?.uid ?: throw Exception("User doesn't exist")
         return uid
     }
@@ -29,9 +28,5 @@ class UserRepo {
         return res.data?.let {
             User.fromMap(it)
         }
-    }
-
-    suspend fun updateUser(user: User) {
-        getUserCollRef().document(getUid()).set(user).await()
     }
 }

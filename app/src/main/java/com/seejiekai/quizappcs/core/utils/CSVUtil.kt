@@ -2,6 +2,7 @@ package com.seejiekai.quizappcs.core.utils
 
 import android.content.Context
 import android.net.Uri
+import android.widget.Toast
 import com.seejiekai.quizappcs.data.model.Question
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -22,13 +23,16 @@ object CSVUtil {
                     val content = line.split(",")
                     if (content.size >= 6) {
                         val question = Question(
-                            question = content[0],
-                            option = content.subList(1,5),
-                            answer = content[5],
-                            time = content[6].toIntOrNull() ?: 10,
-                            mark = content[7].toIntOrNull() ?: 1
+                            questionId = content[0],
+                            question = content[1],
+                            option = content.subList(2,6),
+                            answer = content[6],
+                            time = content[7].toIntOrNull() ?: 10,
+                            mark = content[8].toIntOrNull() ?: 1
                         )
                         questions.add(question)
+                    } else {
+                        Toast.makeText(context,"CSV file have a problem", Toast.LENGTH_SHORT)
                     }
                 }
             }

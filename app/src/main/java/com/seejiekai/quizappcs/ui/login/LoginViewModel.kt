@@ -1,14 +1,11 @@
 package com.seejiekai.quizappcs.ui.login
 
 import androidx.lifecycle.viewModelScope
-import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.seejiekai.quizappcs.core.service.AuthService
-import com.seejiekai.quizappcs.core.utils.UserRoles
 import com.seejiekai.quizappcs.data.repo.UserRepo
 import com.seejiekai.quizappcs.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
